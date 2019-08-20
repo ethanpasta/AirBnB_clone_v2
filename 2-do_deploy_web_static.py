@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from fabric.api import env, run, put
+from fabric.api import env, run, put, sudo
 import os
 
 
@@ -12,6 +12,7 @@ env.key_filename = "~/.ssh/holberton"
 def do_deploy(archive_path):
     """ Function distributes an archive to web servers """
     if not os.path.exists(archive_path):
+        print("hi")
         return False
     filename = os.path.basename(archive_path)
     name = filename.split(".")[0]
@@ -27,7 +28,7 @@ def do_deploy(archive_path):
                  "/data/web_static/releases/{}/".format(filename, name))
     if result.failed:
         return False
-    result = run("rm /tmp/{}.tgz".format(name))
+    result = run("rm /tmp/{}".format(filename))
     if result.failed:
         return False
     result = run("mv /data/web_static/releases/{}"
