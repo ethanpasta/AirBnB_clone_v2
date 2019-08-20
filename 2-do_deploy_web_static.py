@@ -2,6 +2,7 @@
 
 from fabric.api import env, run, put
 import os
+import re
 
 
 env.hosts = ['35.196.108.226', '34.74.255.195']
@@ -25,36 +26,37 @@ def do_deploy(archive_path):
     """ Function distributes an archive to two web servers """
     if not os.path.exists(archive_path):
         return False
-    result = put("versions/web_static_20190820T000226.tgz",
-                 "/tmp/web_static_20190820T000226.tgz")
+    match = re.search(r'^versions/(web_static_.+)\.tgz', archive_path)
+    filename = match.group(1)
+    result = put(archive_path,
+                 "/tmp/{}.tgz".format(filename))
     if result.failed:
         return False
     result = run("mkdir -p /data/web_static/"
-                 "releases/web_static_20190820T000226/")
+                 "releases/{}/".format(filename))
     if result.failed:
         return False
-    result = run("tar -xzf /tmp/web_static_20190820T000226.tgz -C"
-                 "/data/web_static/releases/web_static_20190820T000226/")
+    result = run("tar -xzf /tmp/{}.tgz -C"
+                 "/data/web_static/releases/{}/".format(filename, filename))
     if result.failed:
         return False
-    result = run("rm /tmp/web_static_20190820T000226.tgz")
+    result = run("rm /tmp/{}.tgz".format(filename))
     if result.failed:
         return False
-    result = run("mv /data/web_static/releases/web_static_20190820T000226"
+    result = run("mv /data/web_static/releases/{}"
                  "/web_static/* /data/web_static/releases/"
-                 "web_static_20190820T000226/")
+                 "{}/".format(filename, filename))
     if result.failed:
         return False
     result = run("rm -rf /data/web_static/releases/"
-                 "web_static_20190820T000226/web_static/")
+                 "{}/web_static/".format(filename))
     if result.failed:
         return False
     result = run("rm -rf /data/web_static/current")
     if result.failed:
         return False
-    result = run("ln -s /data/web_static/"
-                 "releases/web_static_20190820T000226/ "
-                 "/data/web_static/current")
+    result = run("ln -s /data/web_static/releases/{}/ "
+                 "/data/web_static/current".format(filename))
     if result.failed:
         return False
     print("New version deployed!")
