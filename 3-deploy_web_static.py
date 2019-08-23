@@ -9,7 +9,7 @@ env.user = "ubuntu"
 env.key_filename = "~/.ssh/holberton"
 
 
-def do_deploy(archive_path):
+def deploy(archive_path):
     """ Function distributes an archive to web servers """
     if not os.path.exists(archive_path):
         print("hi")
