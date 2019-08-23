@@ -19,7 +19,7 @@ def do_pack():
     result = local("tar -czvf {} web_static".format(filename))
     if result.failed:
         return None
-    return result
+    return filename
 
 
 def do_deploy(archive_path):
