@@ -12,7 +12,6 @@ env.key_filename = "~/.ssh/holberton"
 def do_deploy(archive_path):
     """ Function distributes an archive to web servers """
     if not os.path.exists(archive_path):
-        print("hi")
         return False
     filename = os.path.basename(archive_path)
     name = filename.split(".")[0]
