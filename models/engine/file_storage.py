@@ -67,6 +67,11 @@ class FileStorage:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             del(self.__objects[key])
 
+    def close(self):
+        """ Method to close an object
+        """
+        self.reload()
+
     def classes(self):
         """Returns a dictionary of valid classes and their references."""
         from models.base_model import BaseModel

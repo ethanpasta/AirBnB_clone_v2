@@ -22,5 +22,5 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """ Getter attribute for FileStorage environment """
-            return [city for city in models.storage.all(City) if
+            return [city for city in models.storage.all(City).values() if
                     city.state_id == self.id]

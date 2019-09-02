@@ -37,7 +37,7 @@ class DBStorage:
         classes = [City, State, User, Place, Review, Amenity]
         objs = []
         if cls:
-            objs = self.__session.query(cls).all()
+            objs = self.__session.query(eval(cls)).all()
         else:
             for curr in classes:
                 objs.extend([obj for obj in self.__session.query(curr).all()])
@@ -74,6 +74,10 @@ class DBStorage:
         Session = scoped_session(sessionmaker(
             bind=self.__engine, expire_on_commit=False))
         self.__session = Session()
+
+    def close(self):
+        """ Method closes a session """
+        self.__session.close()
 
     def classes(self):
         """Returns a dictionary of valid classes and their references."""
