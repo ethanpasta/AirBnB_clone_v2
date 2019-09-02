@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """ Module for simple flask application - Task 3 """
 
-from web_flask import app
+from flask import Flask
+app = Flask(__name__)
 
 
 @app.route('/')
