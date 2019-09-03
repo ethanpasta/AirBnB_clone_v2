@@ -53,8 +53,9 @@ button:hover {
 .popover {
     visibility: hidden;
     width: 100%;
+    overflow-y: scroll;
     max-height: 300px;
-    overflow: auto;
+    height: fit-content;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     background: #FAFAFA;
