@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" type="text/css" href="styles/4-common.css">
-    <link rel="stylesheet" type="text/css" href="styles/3-header.css">
-    <link rel="stylesheet" type="text/css" href="styles/3-footer.css">
-    <link rel="stylesheet" type="text/css" href="styles/6-filters.css">
-    <link rel="icon" href="images/icon.png" />
+    <link rel="stylesheet" type="text/css" href="../static/styles/4-common.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles/3-header.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles/3-footer.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles/6-filters.css"/>
+    <link rel="icon" href="../static/images/icon.png" />
     <title>HBnB</title>
   </head>
   <body>
@@ -21,11 +21,12 @@
             <UL>
               {% for state in storage.all("State").values()|sort(attribute='name') %}
               <LI>
-		<H2><B>{{ state.name }}</B></H2>
+		<H2>{{ state.name }}</H2>
 		<UL>
                   {% for city in state.cities|sort(attribute='name') %}
-                  <LI><B>{{ city.name }}</B></LI>
+                  <LI>{{ city.name }}</LI>
                   {% endfor %}
+		</UL>
               </LI>
               {% endfor %}
             </UL>
@@ -37,7 +38,7 @@
 	  <div class="popover">
             <UL>
               {% for amenity in storage.all("Amenity").values()|sort(attribute='name') %}
-              <LI><B>{{ amenity.name }}</B></LI>
+              <LI>{{ amenity.name }}</LI>
 	      {% endfor %}
             </UL>
 	  </div>
